@@ -1,0 +1,146 @@
+{% extends "layout.html" %}
+{% block content %}
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+					<div class = "col-lg-12">
+						<h1></h1>
+					</div>
+                    <div class="col-lg-12">
+					
+                        <h1 class="page-header">Device
+                            <small>Edit</small>
+                        </h1>
+                    </div>
+					{% with messages = get_flashed_messages(with_categories=true) %}
+						{% if messages %}
+							{% for category, message in messages %}
+								<div class ="alert alert-{{ category}}">
+								{{ message }}
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
+                    <!-- /.col-lg-12 -->
+                    <div class="col-lg-7" style="padding-bottom:120px">
+                        <form  action="" method="POST">
+						{{ form.csrf_token }}
+
+                            <div class="form-group row">
+                                {{form.id.label(class_="col-sm-3",style ="padding-top:5px; font-size:120%")}}
+								{% if form.id.errors %}
+									{{ form.id(class_="form-control", style="border: 1px solid red;width:70%;") }}
+									<div class="text-danger">
+										{% for error in form.id.errors %}
+											<div class="col-sm-3"></div>										
+											<small>{{ error }}</small>
+										{% endfor %}
+									</div>
+								{% else %}
+									{{ form.id(class_="form-control",placeholder="Please enter ID",style="width:70%;") }}
+								{% endif %}
+								
+                            </div>
+                            <div class="form-group row">
+                                {{form.name.label(class_="col-sm-3",style ="padding-top:5px; font-size:120%")}}
+								{% if form.name.errors %}
+									{{ form.name(class_="form-control", style="border: 1px solid red;width:70%;") }}
+									<div class="text-danger">
+										{% for error in form.name.errors %}
+											<div class="col-sm-3"></div>										
+											<small>{{ error }}</small>
+										{% endfor %}
+									</div>
+								{% else %}
+									{{ form.name(class_="form-control",placeholder="Please enter Name",style="width:70%;") }}
+								{% endif %}							
+                            </div>
+                            <div class="form-group row">
+                                {{form.serial.label(class_="col-sm-3",style ="padding-top:5px; font-size:120%")}}
+								{% if form.serial.errors %}
+								
+									{{ form.serial(class_="form-control", style="border: 1px solid red;width:70%;") }}
+									<div class="text-danger">
+										{% for error in form.serial.errors %}
+											<div class="col-sm-3"></div>										
+											<small>{{ error }}</small>
+										{% endfor %}
+									</div>
+								{% else %}
+									{{ form.serial(class_="form-control",placeholder="Please enter Serial",style="width:70%;") }}
+								{% endif %}	
+                            </div>
+                            <div class="form-group row">
+                                {{form.brand.label(class_="col-sm-3",style ="padding-top:5px; font-size:120%")}}
+								{% if form.brand.errors %}
+									{{ form.brand(class_="form-control", style="border: 1px solid red;width:70%;") }}
+									<div class="text-danger">
+										{% for error in form.brand.errors %}
+											<div class="col-sm-3"></div>										
+											<small>{{ error }}</small>
+										{% endfor %}
+									</div>
+								{% else %}
+									{{ form.brand(class_="form-control",placeholder="Please enter Brand",style="width:70%;") }}
+								{% endif %}	
+                            </div>
+                            <div class="form-group row">
+                                {{form.type.label(class_="col-sm-3",style ="padding-top:5px; font-size:120%")}}
+								{% if form.type.errors %}
+									{{ form.type(class_="form-control", style="border: 1px solid red;width:70%;") }}
+									<div class="text-danger">
+										{% for error in form.type.errors %}
+											<div class="col-sm-3"></div>										
+											<small>{{ error }}</small>
+										{% endfor %}
+									</div>
+								{% else %}
+									{{ form.type(class_="form-control",placeholder="Please enter Type",style="width:70%;") }}
+								{% endif %}	
+                            </div>
+					
+
+						    <div class="form-group row">
+                                {{form.date_buy.label(class_="col-sm-3",style ="padding-top:5px; font-size:120%")}}
+								{% if form.date_buy.errors %}
+									{{ form.date_buy(class_="form-control", style="border: 1px solid red;width:70%;") }}
+									<div class="text-danger">
+										{% for error in form.date_buy.errors %}
+											<div class="col-sm-3"></div>										
+											<small>{{ error }}</small>
+										{% endfor %}
+									</div>
+								{% else %}
+									{{ form.date_buy(class_="form-control",placeholder="Please enter date buy",style="width:70%;") }}
+								{% endif %}	
+                            </div>		
+
+						    <div class="form-group row">
+                                {{form.value.label(class_="col-sm-3",style ="padding-top:5px; font-size:120%")}}
+								{% if form.value.errors %}
+									{{ form.value(class_="form-control", style="border: 1px solid red;width:70%;") }}
+									<div class="text-danger">
+										{% for error in form.value.errors %}
+											<div class="col-sm-3"></div>
+											<small>{{ error }}</small>
+										{% endfor %}
+									</div>
+								{% else %}
+									{{ form.value(class_="form-control number",placeholder="VNĐ",style="width:70%;") }}
+								{% endif %}	
+                            </div>	
+
+							<div class ="form-group row">
+								<div class="col-sm-3"></div>
+								<button type="submit" class="btn btn-default">Save</button>
+							</div>
+                        <form>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+{% endblock %}
