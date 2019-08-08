@@ -41,16 +41,16 @@
                         <tbody>
 							{% for borrow in borrowlist %}
                             <tr class="odd gradeX" align="center">
-								<td>{{borrow.borrower.id}}</td>
-                                <td>{{borrow.borrower.name}}</td>
-                                <td>{{borrow.device_borrow.name}}</td>
-								<td>{{borrow.device_borrow.brand}}</td>
-                                <td>{{borrow.date_borrow}}</td>
+								<td class="auto-line-break">{{borrow.borrower.id}}</td>
+                                <td class="auto-line-break">{{borrow.borrower.name}}</td>
+                                <td class="auto-line-break">{{borrow.device_borrow.name}}</td>
+								<td class="auto-line-break">{{borrow.device_borrow.brand}}</td>
+                                <td class="auto-line-break">{{borrow.date_borrow}}</td>
 								{% if borrow.date_return == None %}
 
-								<td style="text-align:center;"><a href={{url_for('return_from_borrowlist', id = borrow.id)}} class="btn btn-primary" role="button"><i class="fa fa-undo"></i></a></td>
+								<td class="auto-line-break" style="text-align:center;"><a href={{url_for('return_from_borrowlist', id = borrow.id)}} class="btn btn-primary" role="button"><i class="fa fa-undo"></i></a></td>
 								{% else %}
-								<td style="text-align:center;">{{borrow.date_return}}</td>
+								<td class="auto-line-break" style="text-align:center;">{{borrow.date_return}}</td>
 
 								{% endif %}
 

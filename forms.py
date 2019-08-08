@@ -12,7 +12,7 @@ class EmployeeAddForm(FlaskForm):
 
 class DeviceAddForm(FlaskForm):
     id = StringField('Id',validators=[DataRequired(),Length(min=2, max=20)])
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=20)])
+    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=50)])
     serial = StringField('Serial', validators=[DataRequired(), Length(min=2, max=20)])
     brand = StringField('Brand', validators=[DataRequired(), Length(min=2, max=20)])
     type = StringField('Type', validators=[DataRequired(), Length(min=2, max=20)])

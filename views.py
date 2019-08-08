@@ -12,7 +12,15 @@ data =[]
 
 @app.route('/export/<id>/')
 def export(id):
-
+    options = {
+        'page-size': 'A4',
+        'dpi': 400,
+        'encoding': 'utf-8',
+        'margin-top': '1.6cm',
+        'margin-bottom': '2.54cm',
+        'margin-left': '2.54cm',
+        'margin-right': '2.54cm'
+    }
     if not session.get('logged_in'):
         return render_template('login.html')
     borrows = Borrow.query.filter_by(borrower_id=id,date_return = None).all()
@@ -24,12 +32,13 @@ def export(id):
     currentYear = datetime.now().strftime('%Y')
     rendered = render_template('export.html', borrows = borrows,name = borrower_name, id_card=id_card
                                ,currentDay = currentDay, currentMonth = currentMonth,currentYear = currentYear)
-    pdf = pdfkit.from_string(rendered,False, configuration=config)
+    pdf = pdfkit.from_string(rendered,False, configuration=config,options=options)
 
     response = make_response(pdf)
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Dispotition'] ='inline; filename=output.pdf'
     return response
+
 
 @app.route('/borrow_list')
 def borrow_list():
@@ -38,7 +47,7 @@ def borrow_list():
     # page = request.args.get(get_page_parameter(), type=int, default=1)
     # borrowlist = Borrow.query.paginate(page, 1000, False)
     # pagination = Pagination(page=page, per_page=1000, total=Borrow.query.count(), css_framework='bootstrap3')
-    borrowlist = Borrow.query.all()
+    borrowlist = Borrow.query.filter().order_by(Borrow.date_borrow.desc())
     return render_template('borrow_list.html', borrowlist = borrowlist)
 
 @app.route('/history_list/<id>')
@@ -50,11 +59,12 @@ def borrow_history(id):
     borrower_name = borrower.name
     borrower_id = borrower.id
     id_card = borrower.identity_card
+    status='All'
     # page = request.args.get(get_page_parameter(), type=int, default=1)
     # history = Borrow.query.filter_by(borrower_id=id).paginate(page, 100 , False)
     # pagination = Pagination(page=page, per_page=100, total=Borrow.query.filter_by(borrower_id=id).count(), css_framework='bootstrap3')
     return render_template('employee_borrow_list.html', borrowlist = history,borrower_name=borrower_name, borrower_id=borrower_id
-                           ,id_card = id_card)
+                           ,id_card = id_card,status=status)
 
 @app.route('/history_list/<id>/borrowing')
 def borrowing_history(id):
@@ -65,8 +75,9 @@ def borrowing_history(id):
     borrower_name = borrower.name
     borrower_id = borrower.id
     id_card = borrower.identity_card
+    status='Borrowing'
     return render_template('employee_borrow_list.html', borrowlist = history,borrower_name=borrower_name, borrower_id=borrower_id
-                           ,id_card = id_card)
+                           ,id_card = id_card,status=status)
 
 @app.route('/history_list/<id>/returned')
 def returned_history(id):
@@ -96,6 +107,22 @@ def device_return(id):
             flash('Failed to return!', 'danger')
 
         return redirect(url_for('borrow_history', id = borrow.borrower_id))
+
+@app.route('/return_from_borrowing_list/<id>')
+def return_from_borrowing_list(id):
+    if not session.get('logged_in'):
+        return render_template('login.html')
+
+    else:
+        try:
+            borrow = Borrow.query.filter_by(id=id).first_or_404()
+            borrow.date_return = datetime.today().strftime('%Y-%m-%d')
+            borrow.device_borrow.status = 1
+            db.session.commit()
+        except exc.SQLAlchemyError:
+            flash('Failed to return!', 'danger')
+
+        return redirect(url_for('borrowing_history', id = borrow.borrower_id))
 
 @app.route('/return/<id>/')
 def return_from_borrowlist(id):

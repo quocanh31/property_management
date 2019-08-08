@@ -50,13 +50,13 @@
 							{% for device in devices %}
                             <tr class="odd gradeX" align="center">
 
-                                <td>{{device.id}}</td>
-                                <td>{{device.name}}</td>
-                                <td>{{device.serial}}</td>
-                                <td>{{device.brand}}</td>
-								<td>{{device.type}}</td>
-								<td>{{device.date_buy}}</td>
-								<td>{{"{:,}".format(device.value)}} VNĐ</td>
+                                <td class="auto-line-break">{{device.id}}</td>
+                                <td class="auto-line-break">{{device.name}}</td>
+                                <td class="auto-line-break">{{device.serial}}</td>
+                                <td class="auto-line-break">{{device.brand}}</td>
+								<td class="auto-line-break">{{device.type}}</td>
+								<td class="auto-line-break">{{device.date_buy}}</td>
+								<td class="auto-line-break">{{"{:,}".format(device.value)}} VNĐ</td>
 								{% if device.status is sameas true %}
 									<td>Available</td>
 									<!--<td><a href={{url_for('DeviceAdd')}} class="btn btn-primary" role="button"><i class="fa fa-user-plus"></i></a></td>-->
@@ -65,8 +65,8 @@
 									<!--<td><a class="btn btn-primary " role="button" id="a-disabled"> <i class="fa fa-user-plus"></i></a></td>-->
 
 								{% endif %}
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{{url_for('DeviceDelete', id = device.id)}}"> Delete</a></td>
-                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{url_for('DeviceEdit', id = device.id)}}">Edit</a></td>
+                                <td class="center auto-line-break"><i class="fa fa-trash-o  fa-fw"></i><a href="{{url_for('DeviceDelete', id = device.id)}}"> Delete</a></td>
+                                <td class="center auto-line-break"><i class="fa fa-pencil fa-fw"></i> <a href="{{url_for('DeviceEdit', id = device.id)}}">Edit</a></td>
                             </tr>
 							{% endfor %}
 
@@ -98,7 +98,7 @@
 			},
 			pageLength: 15,
 			orderCellsTop: true,
-			"dom" : '<"col-lg-12"<"toolbar"> <"lend-button"><"info">f<"row"<"col-md-10"t<ip>><"col-md-2">>>',
+			"dom" : '<"col-lg-12"<"toolbar"> <"lend-button"><"info">f<"row"<"col-md-10 table-contain"t<ip>><"col-md-2">>>',
 			initComplete: function(){
 				$("div.toolbar").html('  <a href={{url_for('DeviceAdd')}} class="btn btn-primary" role="button"><i class="fa fa-plus-circle"></i> Add Device</a>');
 				$("div.lend-button").html('  <a href={{url_for('borrow')}} style="float:left; margin-left:10px" class="btn btn-primary" id="button" role="button"><i class="fa fa-user-plus"></i> Lend</a>');
@@ -153,11 +153,16 @@
 
 			}
 		);
-		
-		$('#dataTables-example tbody').on( 'click', 'tr', function () {
-			if(($(this).find('td').eq(7).text())=="Available")
-				$(this).toggleClass('selected');
-			else alert("Device not available!")
+
+		$('#dataTables-example tbody').on( 'click', 'td', function () {
+            var column_num = parseInt( $(this).index() ) ;
+			if(column_num == 8 || column_num ==9)
+				return;
+
+			var row_num = parseInt( $(this).parent().index() +1 );  ;
+			if(($(this).parent().find('td').eq(7).text())=="Available")
+				$(this).parent().toggleClass('selected');
+			else swal ( "Oops" ,  "Device not select or unavailable!" ,  "error" )
 			var id = $.map(table.rows('.selected').data(), function (item) {
 				return item[0]
 			});
@@ -217,7 +222,7 @@
 			// array empty or does not exist
 
 
-			alert("Not select device or device unavailable!");
+			swal ( "Oops" ,  "Device not select or unavailable!" ,  "error" )
 			e.preventDefault();
 		}
 		else {
