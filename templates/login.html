@@ -1,23 +1,31 @@
-	 	 	<link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/fontawesome/css/fontawesome.min.css" type="text/css">
+<link rel="stylesheet" href="/static/fontawesome/css/solid.min.css" type="text/css">
+<link rel="stylesheet" href="/static/style.css" type="text/css">
 
+<title>Login</title>
 
+<body>
+	<form action="login" method="POST">
+		<div class="login">
+			<div class="login-screen">
+				<div class="app-title">
+					
+					<i class="fas fa-user-circle logo"> </i>
+				</div>
+				<div class="login-form">
+						<h2>Tên đăng nhập <i class="fas fa-user"></i></h2>
+					<div class="username">
+						<input type="text" class="login-field" value="" placeholder="Tên đăng nhập" name="username">
+						<label class="login-field-icon fui-user" for="login-name"></label>
+					</div>
+					<h2>Mật khẩu <i class="fas fa-lock"></i></h2>
 
-<form action="/login" method="POST">
-<div class="login">
-<div class="login-screen">
-<div class="app-title">
-<h1>Login</h1>
-</div>
-<div class="login-form">
-<div class="control-group">
-				<input type="text" class="login-field" value="" placeholder="username" name="username">
-<label class="login-field-icon fui-user" for="login-name"></label></div>
-<div class="control-group">
-				<input type="password" class="login-field" value="" placeholder="password" name="password">
-<label class="login-field-icon fui-lock" for="login-pass"></label></div>
-<input type="submit" value="Log in" class="btn btn-primary btn-large btn-block">
-
-</div>
-</div>
-</div>
-</form>
+					<div class="password">
+						<input type="password" class="login-field" value="" placeholder="Mật khẩu" name="password">
+						<label class="login-field-icon fui-lock" for="login-pass"></label></div>
+					<input type="submit" value="Log in" class="btn btn-primary btn-large btn-block">
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
