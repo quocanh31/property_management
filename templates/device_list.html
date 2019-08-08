@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-
+{% block title %} Device List {% endblock %}
 {% block content %}
         <!-- Page Content -->
 
@@ -47,7 +47,7 @@
                             </tr>
                         </thead>
                         <tbody>
-							{% for device in devices.items %}
+							{% for device in devices %}
                             <tr class="odd gradeX" align="center">
 
                                 <td>{{device.id}}</td>
@@ -72,16 +72,7 @@
 
                         </tbody>
                     </table>
-					<div class="row">
-						<div class="col-sm-6" style="text-align:bottom; padding-top:position">
-							{{ pagination.info }}
-						</div>
 
-						<div class ="col-sm-6" style="text-align:right;">
-							{{ pagination.links }}
-						</div>
-
-					</div>
 
 
 					
@@ -99,17 +90,15 @@
 
        var table = $('#dataTables-example').removeAttr('width').DataTable({	
 
-		
-
 			searchPane: {
 				container : '.col-md-2',
 				columns: [':contains("Type")',':contains("Status")', ':contains("Brand")'],
 				threshold : 0
 
 			},
-			pageLength: 50,
+			pageLength: 15,
 			orderCellsTop: true,
-			"dom" : '<"col-lg-12"<"toolbar"> <"lend-button"><"info">f<"row"<"col-md-10"t><"col-md-2">>>',
+			"dom" : '<"col-lg-12"<"toolbar"> <"lend-button"><"info">f<"row"<"col-md-10"t<ip>><"col-md-2">>>',
 			initComplete: function(){
 				$("div.toolbar").html('  <a href={{url_for('DeviceAdd')}} class="btn btn-primary" role="button"><i class="fa fa-plus-circle"></i> Add Device</a>');
 				$("div.lend-button").html('  <a href={{url_for('borrow')}} style="float:left; margin-left:10px" class="btn btn-primary" id="button" role="button"><i class="fa fa-user-plus"></i> Lend</a>');

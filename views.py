@@ -3,32 +3,83 @@ from models import Employee,Device,Borrow
 from flask import render_template, flash, redirect, url_for, request,session,make_response
 from forms import *
 from run import db
-from sqlalchemy import exc
+from sqlalchemy import exc, and_
 from flask_paginate import Pagination, get_page_parameter
 from datetime import datetime
 import pdfkit
-
+from config import config
 data =[]
+
+@app.route('/export/<id>/')
+def export(id):
+
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    borrows = Borrow.query.filter_by(borrower_id=id,date_return = None).all()
+    borrower=Employee.query.filter_by(id=id).first_or_404()
+    borrower_name = borrower.name
+    id_card = borrower.identity_card
+    currentDay = datetime.now().strftime('%d')
+    currentMonth = datetime.now().strftime('%m')
+    currentYear = datetime.now().strftime('%Y')
+    rendered = render_template('export.html', borrows = borrows,name = borrower_name, id_card=id_card
+                               ,currentDay = currentDay, currentMonth = currentMonth,currentYear = currentYear)
+    pdf = pdfkit.from_string(rendered,False, configuration=config)
+
+    response = make_response(pdf)
+    response.headers['Content-Type'] = 'application/pdf'
+    response.headers['Content-Dispotition'] ='inline; filename=output.pdf'
+    return response
 
 @app.route('/borrow_list')
 def borrow_list():
     if not session.get('logged_in'):
         return render_template('login.html')
-    page = request.args.get(get_page_parameter(), type=int, default=1)
-    borrowlist = Borrow.query.paginate(page, 100, False)
-    pagination = Pagination(page=page, per_page=100, total=Borrow.query.count(), css_framework='bootstrap3')
-    return render_template('borrow_list.html', borrowlist = borrowlist, pagination = pagination)
+    # page = request.args.get(get_page_parameter(), type=int, default=1)
+    # borrowlist = Borrow.query.paginate(page, 1000, False)
+    # pagination = Pagination(page=page, per_page=1000, total=Borrow.query.count(), css_framework='bootstrap3')
+    borrowlist = Borrow.query.all()
+    return render_template('borrow_list.html', borrowlist = borrowlist)
 
-@app.route('/history_list/<id>/<borrower_name>')
-def borrow_history(id,borrower_name):
+@app.route('/history_list/<id>')
+def borrow_history(id):
     if not session.get('logged_in'):
         return render_template('login.html')
-    history = Borrow.query.filter_by(borrower_id=id,date_return = None).all()
-    borrower_name = Employee.query.filter_by(id=id).first_or_404().name
+    history = Borrow.query.filter_by(borrower_id=id).all()
+    borrower=Employee.query.filter_by(id=id).first_or_404()
+    borrower_name = borrower.name
+    borrower_id = borrower.id
+    id_card = borrower.identity_card
     # page = request.args.get(get_page_parameter(), type=int, default=1)
     # history = Borrow.query.filter_by(borrower_id=id).paginate(page, 100 , False)
     # pagination = Pagination(page=page, per_page=100, total=Borrow.query.filter_by(borrower_id=id).count(), css_framework='bootstrap3')
-    return render_template('employee_borrow_list.html', borrowlist = history,borrower_name=borrower_name)
+    return render_template('employee_borrow_list.html', borrowlist = history,borrower_name=borrower_name, borrower_id=borrower_id
+                           ,id_card = id_card)
+
+@app.route('/history_list/<id>/borrowing')
+def borrowing_history(id):
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    history = Borrow.query.filter_by(borrower_id=id, date_return= None).all()
+    borrower=Employee.query.filter_by(id=id).first_or_404()
+    borrower_name = borrower.name
+    borrower_id = borrower.id
+    id_card = borrower.identity_card
+    return render_template('employee_borrow_list.html', borrowlist = history,borrower_name=borrower_name, borrower_id=borrower_id
+                           ,id_card = id_card)
+
+@app.route('/history_list/<id>/returned')
+def returned_history(id):
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    history = Borrow.query.filter(and_(Borrow.borrower_id == id, Borrow.date_return.isnot(None)))
+    borrower=Employee.query.filter_by(id=id).first_or_404()
+    borrower_name = borrower.name
+    borrower_id = borrower.id
+    id_card = borrower.identity_card
+    return render_template('employee_borrow_list.html', borrowlist = history,borrower_name=borrower_name, borrower_id=borrower_id
+                           ,id_card = id_card)
+
 
 @app.route('/device_return/<id>/')
 def device_return(id):
@@ -38,14 +89,13 @@ def device_return(id):
     else:
         try:
             borrow = Borrow.query.filter_by(id=id).first_or_404()
-            borrower_name = Borrow.query.filter_by(id=id).first_or_404().borrower.name
             borrow.date_return = datetime.today().strftime('%Y-%m-%d')
             borrow.device_borrow.status = 1
             db.session.commit()
         except exc.SQLAlchemyError:
             flash('Failed to return!', 'danger')
 
-        return redirect(url_for('borrow_history', id = borrow.borrower_id, borrower_name = borrower_name))
+        return redirect(url_for('borrow_history', id = borrow.borrower_id))
 
 @app.route('/return/<id>/')
 def return_from_borrowlist(id):
@@ -97,35 +147,36 @@ def borrow_add(id):
 
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def do_admin_login():
-    if request.form['password'] == 'password' and request.form['username'] == 'admin':
-        session['logged_in'] = True
-    return home()
+    if request.method =='POST':
+        if request.form['password'] == 'password' and request.form['username'] == 'admin':
+            session['logged_in'] = True
+            return redirect(url_for('home'))
+    return render_template('login.html')
+
 
 
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
-    return home()
+    return redirect(url_for('home'))
 
 @app.route('/')
 def home():
     if not session.get('logged_in'):
-        return render_template('login.html')
-
+        return redirect(url_for('do_admin_login'))
     else:
-        page = request.args.get(get_page_parameter(), type=int, default=1)
-        devices = Device.query.paginate(page, 1000 ,False)
-        pagination = Pagination(page=page,per_page=1000, total=Device.query.count(),css_framework='bootstrap3')
-        # devices = Device.query.paginate(page,2,False)
-        # pagination = Pagination(page = page, total= Device.query.count())
-        return render_template('device_list.html',devices = devices,pagination=pagination,)
+        # page = request.args.get(get_page_parameter(), type=int, default=1)
+        # devices = Device.query.paginate(page, 10 ,False)
+        # pagination = Pagination(page=page,per_page=10, total=Device.query.count(),css_framework='bootstrap3')
+        devices = Device.query.all()
+        return render_template('device_list.html',devices = devices)
 
 @app.route('/borrow', methods=['GET','POST'])
 def BorrowAdd():
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return redirect(url_for('do_admin_login'))
 
     else:
         form = BorrowForm()
@@ -155,7 +206,7 @@ def BorrowAdd():
 @app.route('/device/add', methods=['GET', 'POST'])
 def DeviceAdd():
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return redirect(url_for('do_admin_login'))
 
     else:
         form = DeviceAddForm()
@@ -179,7 +230,7 @@ def DeviceAdd():
 @app.route('/employee/<id>/edit', methods =['GET', 'POST'])
 def EmployeeEdit(id):
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return redirect(url_for('do_admin_login'))
 
     else:
         employee = Employee.query.filter_by(id=id).first_or_404()
@@ -210,7 +261,7 @@ def EmployeeEdit(id):
 @app.route('/device/<id>/edit', methods =['GET', 'POST'])
 def DeviceEdit(id):
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return redirect(url_for('do_admin_login'))
 
     else:
         device = Device.query.filter_by(id=id).first_or_404()
@@ -249,7 +300,7 @@ def DeviceEdit(id):
 @app.route('/device/<id>/delete', methods=['GET'])
 def DeviceDelete(id):
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return redirect(url_for('do_admin_login'))
 
     else:
         try:
@@ -265,22 +316,20 @@ def DeviceDelete(id):
 @app.route('/employee', methods=['GET', 'POST'])
 def EmployeeList():
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return redirect(url_for('do_admin_login'))
 
     else:
-        page = request.args.get(get_page_parameter(), type=int, default=1)
-        employees = Employee.query.paginate(page, 20 ,False)
-        pagination = Pagination(page=page,per_page=20, total=Employee.query.count(),css_framework='bootstrap3')
-        # devices = Device.query.paginate(page,2,False)
-        # pagination = Pagination(page = page, total= Device.query.count())
-        return render_template('employee_list.html',employees = employees,pagination=pagination,)
-        # employees =  Employee.query.all()
-        # return render_template('employee_list.html', employees = employees)
+        # page = request.args.get(get_page_parameter(), type=int, default=1)
+        # employees = Employee.query.paginate(page, 1000 ,False)
+        # pagination = Pagination(page=page,per_page=1000, total=Employee.query.count(),css_framework='bootstrap3')
+        # return render_template('employee_list.html',employees = employees,pagination=pagination,)
+        employees =  Employee.query.all()
+        return render_template('employee_list.html', employees = employees)
 
 @app.route('/employee/add', methods=['GET', 'POST'])
 def EmployeeAdd():
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return redirect(url_for('do_admin_login'))
 
     else:
         form = EmployeeAddForm()
@@ -301,7 +350,7 @@ def EmployeeAdd():
 @app.route('/employee/<id>/delete', methods=['GET'])
 def EmployeeDelete(id):
     if not session.get('logged_in'):
-        return render_template('login.html')
+        return redirect(url_for('do_admin_login'))
 
     else:
         employee = Employee.query.filter_by(id=id).first_or_404()

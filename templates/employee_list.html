@@ -38,13 +38,13 @@
                             </tr>
                         </thead>
                         <tbody>
-							{% for employee in employees.items %}
+							{% for employee in employees %}
                             <tr class="odd gradeX" align="center">
                                 <td>{{employee.id}}</td>
                                 <td>{{employee.name}}</td>
                                 <td>{{employee.identity_card}}</td>
                                 <td>{{employee.position}}</td>
-								<td class ="center"><i class="fa fa-history" ></i><a href ={{url_for('borrow_history', id = employee.id ,borrower_name=employee.name)}}> History </a> </td>
+								<td class ="center"><i class="fa fa-history" ></i><a href ={{url_for('borrow_history', id = employee.id)}}> History </a> </td>
                                 <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{{url_for('EmployeeDelete', id = employee.id)}}"> Delete</a></td>
                                 <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href={{url_for('EmployeeEdit', id = employee.id )}}>Edit</a></td>
                             </tr>
@@ -52,16 +52,7 @@
 
                         </tbody>
                     </table>
-					<div class="row">
-						<div class="col-sm-6" style="text-align:bottom; padding-top:position">
-							{{ pagination.info }}
-						</div>
 
-						<div class ="col-sm-6" style="text-align:right;">
-							{{ pagination.links }}
-						</div>
-
-					</div>
                 </div>
                 <!-- /.row -->
             </div>
@@ -103,9 +94,9 @@
 					threshold : 0
 
 				},
-		   		pageLength: 100,
+		   		pageLength: 15,
 				orderCellsTop: true,
-				"dom" : '<<"toolbar">f<"row"<"col-md-10"t><"col-md-2">>>',
+				"dom" : '<<"toolbar">f<"row"<"col-md-10"t<ip>><"col-md-2">>>',
 				initComplete: function(){
 					$("div.toolbar").html('  <a href={{url_for('EmployeeAdd')}} class="btn btn-primary" role="button"><i class="fa fa-plus-circle"></i> Add Employee</a>');           
 		   }  

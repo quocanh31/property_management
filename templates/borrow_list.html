@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-							{% for borrow in borrowlist.items %}
+							{% for borrow in borrowlist %}
                             <tr class="odd gradeX" align="center">
 								<td>{{borrow.borrower.id}}</td>
                                 <td>{{borrow.borrower.name}}</td>
@@ -59,16 +59,7 @@
 
                         </tbody>
                     </table>
-					<div class="row">
-						<div class="col-sm-6" style="text-align:bottom; padding-top:position">
-							{{ pagination.info }}
-						</div>
 
-						<div class ="col-sm-6" style="text-align:right;">
-							{{ pagination.links }}
-						</div>
-
-					</div>
                 </div>
                 <!-- /.row -->
             </div>
@@ -92,9 +83,9 @@
 				},
 
 				select: true,
-				pageLength: 100,
+				pageLength: 15,
 				orderCellsTop: true,
-				"dom" : '<"col-lg-12"f<"row"<"col-md-10"t><"col-md-2">>>',
+				"dom" : '<"col-lg-12"f<"row"<"col-md-10"t<ip>><"col-md-2">>>',
 				initComplete: function(){
 					$("div.col-md-2").html('<label>Date Borrow From:</label><input id="datepicker1" type="date"><label style="padding-top:5px;">To:</label><input id="datepicker2" type="date"><button id="button1" type="button" class="btn btn-info">Go</button> ');
 					//END of the data table
@@ -122,8 +113,8 @@
 					dateEnd=today;
 				else
 					dateEnd=$("#datepicker2").val();
-				alert(dateStart);
-				alert(dateEnd);
+				//alert(dateStart);
+				//alert(dateEnd);
 				
 				table.draw();
 				});
@@ -143,6 +134,7 @@
 
 			}
 		);		  
+		
 		
 		$('#dataTables-example tbody').on( 'click', 'tr', function () {
 			$(this).toggleClass('selected');

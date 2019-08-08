@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 {% block content %}
         <!-- Page Content -->
         <div id="page-wrapper">
@@ -79,18 +79,19 @@
 
 		   		searchPane: {
 					container : '.col-md-2',
-					columns: [':contains("Brand")',':contains("Borrower")'],
+					columns: [':contains("Brand")'],
 					threshold : 0
 
 				},
 
 				select: true,
-				pageLength: 100,
+				pageLength: 15,
 				orderCellsTop: true,
-				"dom" : '<"col-lg-12"<"export">f<"row"<"col-md-10"t><"col-md-2">>i>',
+				"dom" : '<"col-lg-12"<"export">f<"row"<"col-md-10"t<ip>><"col-md-2">>>',
 				initComplete: function(){
-					$("div.col-md-2").html('<label>Date Borrow From:</label><input id="datepicker1" type="date"><label style="padding-top:5px;">To:</label><input id="datepicker2" type="date"><button id="button1" type="button" class="btn btn-info">Go</button> ');
-					//END of the data table
+					$("div.export").html('  <a style="float:left;" href={{url_for('export',id=borrower_id)}} class="btn btn-primary" role="button"><i class="fa fa-plus-circle"></i> Export to pdf</a>');
+					$("div.col-md-2").html('<div class="dropdown"><button class="dropbtn">Status</button><div class="dropdown-content"><a href={{url_for('borrowing_history',id=borrower_id)}}>Borrowing</a><a href={{url_for('returned_history',id=borrower_id)}}>Returned</a><a href={{url_for('borrow_history', id = borrower_id)}}>All</a></div></div><label>Date Borrow From:</label><input id="datepicker1" type="date"><label style="padding-top:5px;">To:</label><input id="datepicker2" type="date"><button id="button1" type="button" class="btn btn-info">Go</button> ');
+											//END of the data table
 					}  
 		   
 
