@@ -44,9 +44,9 @@
                                 <td class="auto-line-break">{{employee.name}}</td>
                                 <td class="auto-line-break">{{employee.identity_card}}</td>
                                 <td class="auto-line-break">{{employee.position}}</td>
-								<td class ="center auto-line-break"><i class="fa fa-history" ></i><a href ={{url_for('borrow_history', id = employee.id)}}> History </a> </td>
-                                <td class="center auto-line-break"><i class="fa fa-trash-o  fa-fw"></i><a href="{{url_for('EmployeeDelete', id = employee.id)}}"> Delete</a></td>
-                                <td class="center auto-line-break"><i class="fa fa-pencil fa-fw"></i> <a href={{url_for('EmployeeEdit', id = employee.id )}}>Edit</a></td>
+								<td class ="center auto-line-break"><i class="fa fa-history" ></i><a href ={{url_for('history_api.borrow_history', id = employee.id)}}> History </a> </td>
+                                <td class="center auto-line-break"><i class="fa fa-trash-o  fa-fw"></i><a href="{{url_for('employee_manage.EmployeeDelete', id = employee.id)}}"> Delete</a></td>
+                                <td class="center auto-line-break"><i class="fa fa-pencil fa-fw"></i> <a href={{url_for('employee_manage.EmployeeEdit', id = employee.id )}}>Edit</a></td>
                             </tr>
 							{% endfor %}
 
@@ -98,7 +98,7 @@
 				orderCellsTop: true,
 				"dom" : '<<"toolbar">f<"row"<"col-md-10"t<ip>><"col-md-2">>>',
 				initComplete: function(){
-					$("div.toolbar").html('  <a href={{url_for('EmployeeAdd')}} class="btn btn-primary" role="button"><i class="fa fa-plus-circle"></i> Add Employee</a>');           
+					$("div.toolbar").html('  <a href={{url_for('employee_manage.EmployeeAdd')}} class="btn btn-primary" role="button"><i class="fa fa-plus-circle"></i> Add Employee</a>');
 		   }  
 		   
 

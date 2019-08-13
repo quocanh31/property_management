@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="k">
     <meta name="author" content="">
-    <title></title>
+    <title>{% block title %}{% endblock %} </title>
 
 
 
@@ -206,7 +206,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href={{url_for('home')}} ><i class="fa fa-home"></i> HOME</a>
+                <a class="navbar-brand" href={{url_for('borrow_manage.home')}} ><i class="fa fa-home"></i> HOME</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -220,7 +220,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li class="divider"></li>
-                        <li><a href={{url_for('logout')}}><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href={{url_for('auth.logout')}}><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -246,10 +246,10 @@
                             <a href="#"><i class="fa fa-cube fa-fw"></i> Device<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href={{url_for('home')}}>List Device</a>
+                                    <a href={{url_for('borrow_manage.home')}}>List Device</a>
                                 </li>
                                 <li>
-                                    <a href={{url_for('DeviceAdd')}}>Add Device</a>
+                                    <a href={{url_for('device_mange.DeviceAdd')}}>Add Device</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -258,10 +258,10 @@
                             <a href="#"><i class="fa fa-users fa-fw"></i> Employee<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href={{url_for('EmployeeList')}}>List Employee</a>
+                                    <a href={{url_for('employee_manage.EmployeeList')}}>List Employee</a>
                                 </li>
                                 <li>
-                                    <a href={{url_for('EmployeeAdd')}}>Add Employee</a>
+                                    <a href={{url_for('employee_manage.EmployeeAdd')}}>Add Employee</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -271,7 +271,7 @@
                             <a href="#"><i class="fa fa-clipboard"></i> Record<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href={{url_for('borrow_list')}}>Borrow List</a>
+                                    <a href={{url_for('history_api.borrow_list')}}>Borrow List</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

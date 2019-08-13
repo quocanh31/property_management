@@ -48,9 +48,9 @@
                                 <td class="auto-line-break">{{borrow.date_borrow}}</td>
 								{% if borrow.date_return == None %}
 								{% if status == 'All' %}
-								<td class="auto-line-break" style="text-align:center;"><a href={{url_for('device_return', id = borrow.id)}} class="btn btn-primary" role="button"><i class="fa fa-undo"></i></a></td>
+								<td class="auto-line-break" style="text-align:center;"><a href={{url_for('borrow_manage.device_return', id = borrow.id)}} class="btn btn-primary" role="button"><i class="fa fa-undo"></i></a></td>
 								{% elif status == 'Borrowing' %}
-								<td class="auto-line-break" style="text-align:center;"><a href={{url_for('return_from_borrowing_list', id = borrow.id)}} class="btn btn-primary" role="button"><i class="fa fa-undo"></i></a></td>
+								<td class="auto-line-break" style="text-align:center;"><a href={{url_for('borrow_manage.return_from_borrowing_list', id = borrow.id)}} class="btn btn-primary" role="button"><i class="fa fa-undo"></i></a></td>
 								{% endif %}
 								{% else %}
 								<td class="auto-line-break" style="text-align:center;">{{borrow.date_return}}</td>
@@ -92,8 +92,8 @@
 				orderCellsTop: true,
 				"dom" : '<"col-lg-12"<"export">f<"row"<"col-md-10"t<ip>><"col-md-2">>>',
 				initComplete: function(){
-					$("div.export").html('  <a style="float:left;" href={{url_for('export',id=borrower_id)}} class="btn btn-primary" role="button"><i class="fa fa-plus-circle"></i> Export to pdf</a>');
-					$("div.col-md-2").html('<div class="dropdown"><button class="dropbtn">Status</button><div class="dropdown-content"><a href={{url_for('borrowing_history',id=borrower_id)}}>Borrowing</a><a href={{url_for('returned_history',id=borrower_id)}}>Returned</a><a href={{url_for('borrow_history', id = borrower_id)}}>All</a></div></div><label>Date Borrow From:</label><input id="datepicker1" type="date"><label style="padding-top:5px;">To:</label><input id="datepicker2" type="date"><button id="button1" type="button" class="btn btn-info">Go</button> ');
+					$("div.export").html('  <a style="float:left;" href={{url_for('export_api.export',id=borrower_id)}} class="btn btn-primary" role="button"><i class="fa fa-plus-circle"></i> Export to pdf</a>');
+					$("div.col-md-2").html('<div class="dropdown"><button class="dropbtn">Status</button><div class="dropdown-content"><a href={{url_for('history_api.borrowing_history',id=borrower_id)}}>Borrowing</a><a href={{url_for('history_api.returned_history',id=borrower_id)}}>Returned</a><a href={{url_for('history_api.borrow_history', id = borrower_id)}}>All</a></div></div><label>Date Borrow From:</label><input id="datepicker1" type="date"><label style="padding-top:5px;">To:</label><input id="datepicker2" type="date"><button id="button1" type="button" class="btn btn-info">Go</button> ');
 											//END of the data table
 					}  
 		   

@@ -42,7 +42,7 @@
                                 <td>{{employee.name}}</td>
                                 <td>{{employee.identity_card}}</td>
                                 <td>{{employee.position}}</td>
-								<td><a href={{url_for('borrow_add', id = employee.id)}} class="btn btn-primary" role="button"><i class="fa fa-user-plus"></i></a></td>
+								<td><a href={{url_for('borrow_manage.borrow_add', id = employee.id)}} class="btn btn-primary" role="button"><i class="fa fa-user-plus"></i></a></td>
                             </tr>
 							{% endfor %}
 

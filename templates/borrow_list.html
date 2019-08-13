@@ -48,7 +48,7 @@
                                 <td class="auto-line-break">{{borrow.date_borrow}}</td>
 								{% if borrow.date_return == None %}
 
-								<td class="auto-line-break" style="text-align:center;"><a href={{url_for('return_from_borrowlist', id = borrow.id)}} class="btn btn-primary" role="button"><i class="fa fa-undo"></i></a></td>
+								<td class="auto-line-break" style="text-align:center;"><a href={{url_for('borrow_manage.return_from_borrowlist', id = borrow.id)}} class="btn btn-primary" role="button"><i class="fa fa-undo"></i></a></td>
 								{% else %}
 								<td class="auto-line-break" style="text-align:center;">{{borrow.date_return}}</td>
 
