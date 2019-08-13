@@ -1,31 +1,50 @@
-<link rel="stylesheet" href="/static/fontawesome/css/fontawesome.min.css" type="text/css">
-<link rel="stylesheet" href="/static/fontawesome/css/solid.min.css" type="text/css">
-<link rel="stylesheet" href="/static/style.css" type="text/css">
+<head>
+	<title>Log In</title>
+	<link rel="stylesheet" href="/static/fontawesome/css/all.min.css" type="text/css">
+	<link rel="stylesheet" href="/static/fontawesome/css/solid.min.css" type="text/css">
+	<link rel="stylesheet" href="/static/fontawesome/webfonts/fa-solid-900.ttf" type="text/css">
 
-<title>Login</title>
+	<link rel="stylesheet" href="/static/login-style.css" type="text/css">
+</head>
 
 <body>
-	<form action="login" method="POST">
-		<div class="login">
-			<div class="login-screen">
-				<div class="app-title">
-					
-					<i class="fas fa-user-circle logo"> </i>
-				</div>
-				<div class="login-form">
-						<h2>Tên đăng nhập <i class="fas fa-user"></i></h2>
-					<div class="username">
-						<input type="text" class="login-field" value="" placeholder="Tên đăng nhập" name="username">
-						<label class="login-field-icon fui-user" for="login-name"></label>
-					</div>
-					<h2>Mật khẩu <i class="fas fa-lock"></i></h2>
-
-					<div class="password">
-						<input type="password" class="login-field" value="" placeholder="Mật khẩu" name="password">
-						<label class="login-field-icon fui-lock" for="login-pass"></label></div>
-					<input type="submit" value="Log in" class="btn btn-primary btn-large btn-block">
-				</div>
+	<div class="login-box">
+		<img class="avatar" src="/static/img/login-avatar.png" alt="avatar">
+		<h1>Đăng nhập</h1>
+		<form method="POST">
+			<p>Tên đăng nhập</p>
+			<input type="text" name="username" placeholder="Tên đăng nhập" required checked>
+			<p>Mật khẩu</p>
+			<div class="eyes-showpassword">
+				<input id="passw" type="text" name="password" placeholder="Mật khẩu" required checked>
+				<i id="password" onclick="showPassword1(); showPassword2()" class="fas fa-eye-slash"></i>
 			</div>
-		</div>
-	</form>
+			<input type="submit" name="submit" value="Đăng nhập">
+		</form>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script>
+<!--		$(document).ready(function(){-->
+<!--			$("i").click(showPassword1){-->
+<!--				$("")-->
+<!--			}-->
+<!--		})-->
+
+
+
+		function showPassword1(){
+		var x=document.getElementById("passw");
+		if(x.type==="password"){
+			x.type="text";
+		}
+		else{
+			x.type="password";
+		}
+		}
+		function showPassword2(x){
+			var x=document.getElementById("password");
+			x.classList.toggle("fa-eye");
+			x.classList.toggle("fa-eye-slash");
+		}
+		</script>
+	</div>
 </body>

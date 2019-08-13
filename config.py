@@ -1,5 +1,5 @@
 import pdfkit
 DEBUG = True
-SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:@127.0.0.1:3306/property_manage"
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:@127.0.0.1:3306/property_management"
 SECRET_KEY = 'UHx24EQz8R8lDw2ENCcDvHyRZGqyEANu'
 config = pdfkit.configuration(wkhtmltopdf="C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe")
