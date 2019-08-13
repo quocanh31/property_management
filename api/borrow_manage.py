@@ -50,7 +50,8 @@ def borrow_add(id):
             db.session.add(borrow_info)
             db.session.commit()
         flash('Add complete!','success')
-        return redirect('/borrow_list')
+        # return redirect('/borrow_list')
+        return redirect(url_for('history_api.borrow_history', id = id))
 
 @app.route('/device_return/<id>/')
 def device_return(id):
