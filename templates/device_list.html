@@ -60,18 +60,48 @@
 								{% if device.status is sameas true %}
 									<td>Available</td>
 									<!--<td><a href={{url_for('device_mange.DeviceAdd')}} class="btn btn-primary" role="button"><i class="fa fa-user-plus"></i></a></td>-->
+									<td class="center auto-line-break"><i class="fa fa-trash-o  fa-fw"></i><a data-toggle="modal" data-target="#myModal{{ device.id }}" > Delete</a></td>
+									<div class="modal fade" id="myModal{{device.id}}" role="dialog">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+									
+									  <!-- Modal content-->
+									  <div class="modal-content">
+										<div class="modal-header">
+										  <button type="button" class="close" data-dismiss="modal">&times;</button>
+										  <h4 class="modal-title">Note</h4>
+										</div>
+										<form method="POST" action={{url_for('device_mange.DeviceDelete', id = device.id)}}>
+										<div class="modal-body">
+											<textarea class="form-control" id="message-text" name="note"></textarea>
+											<INPUT type="hidden" name="firstbox" value={{device.id}}>
+										</div>
+										<div class="modal-footer">
+										  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										  <button type="submit" class="btn btn-primary">Ok</button></a>
+										</div>
+
+
+										</form>
+									  </div>
+									  
+									</div>
+									</div>
 								{% elif device.status is sameas false %}
 									<td class = "unavailable" >Unavailable</td>
 									<!--<td><a class="btn btn-primary " role="button" id="a-disabled"> <i class="fa fa-user-plus"></i></a></td>-->
+									<td class="center auto-line-break"><i class="fa fa-trash-o  fa-fw"></i><a  id="prevent-delete" > Delete</a></td>
+
 
 								{% endif %}
-                                <td class="center auto-line-break"><i class="fa fa-trash-o  fa-fw"></i><a href="{{url_for('device_mange.DeviceDelete', id = device.id)}}"> Delete</a></td>
                                 <td class="center auto-line-break"><i class="fa fa-pencil fa-fw"></i> <a href="{{url_for('device_mange.DeviceEdit', id = device.id)}}">Edit</a></td>
                             </tr>
-							{% endfor %}
 
+
+							{% endfor %}
                         </tbody>
+
                     </table>
+
 
 
 
@@ -86,9 +116,13 @@
 {% endblock %}
 {% block subscribe_script %}
     $(document).ready(function() {
+		$("a#prevent-delete").click(function() {
+			swal("Oops" , "Cannot delete. Device has not been returned!", "error");
+			//Do stuff when clicked
+		});
 
 
-       var table = $('#dataTables-example').removeAttr('width').DataTable({	
+        var table = $('#dataTables-example').removeAttr('width').DataTable({	
 
 			searchPane: {
 				container : '.col-md-2',
@@ -155,6 +189,7 @@
 		);
 
 		$('#dataTables-example tbody').on( 'click', 'td', function () {
+
             var column_num = parseInt( $(this).index() ) ;
 			if(column_num == 8 || column_num ==9)
 				return;

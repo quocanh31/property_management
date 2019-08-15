@@ -42,7 +42,27 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 	<style>
-	
+	.table-inside-modal{
+	  display:table;         
+	  width:auto;                
+	  border:1px solid  #666666;         
+	 
+	}
+	.table-row{
+	  display:table-row;
+	  width:auto;
+	  clear:both;
+	}
+	.table-col{
+	  float:left;
+	  display:table-column;         
+	  width:130px;         
+	  border:1px solid  #ccc;
+	}
+	#tableinmodal {
+	  table-layout: fixed;
+	  word-wrap: break-word;
+	}	
 	.dropbtn {
 	  min-width:150px;
 	  background-color: #5bc0de;
@@ -238,9 +258,7 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
+
 
                         <li>
                             <a href="#"><i class="fa fa-cube fa-fw"></i> Device<span class="fa arrow"></span></a>
@@ -275,6 +293,9 @@
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
+                        </li>
+						<li>
+                            <a href={{url_for('log.log_change')}}><i class="fa fa-dashboard fa-fw"></i> Log Change</a>
                         </li>
                     </ul>
                 </div>

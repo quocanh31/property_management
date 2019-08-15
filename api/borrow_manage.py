@@ -10,16 +10,19 @@ app= Blueprint(name='borrow_manage', import_name=__name__)
 
 data =[]
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
     if not session.get('logged_in'):
         return redirect(url_for('auth.do_admin_login'))
     else:
+
         # page = request.args.get(get_page_parameter(), type=int, default=1)
         # devices = Device.query.paginate(page, 10 ,False)
         # pagination = Pagination(page=page,per_page=10, total=Device.query.count(),css_framework='bootstrap3')
-        devices = Device.query.all()
+        # devices = Device.query.all()
+        devices = Device.query.filter_by(is_deleted =0)
         return render_template('device_list.html',devices = devices)
+
 
 
 @app.route('/getID',methods=['POST'])

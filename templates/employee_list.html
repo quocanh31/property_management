@@ -45,7 +45,32 @@
                                 <td class="auto-line-break">{{employee.identity_card}}</td>
                                 <td class="auto-line-break">{{employee.position}}</td>
 								<td class ="center auto-line-break"><i class="fa fa-history" ></i><a href ={{url_for('history_api.borrow_history', id = employee.id)}}> History </a> </td>
-                                <td class="center auto-line-break"><i class="fa fa-trash-o  fa-fw"></i><a href="{{url_for('employee_manage.EmployeeDelete', id = employee.id)}}"> Delete</a></td>
+                               	<td class="center auto-line-break"><i class="fa fa-trash-o  fa-fw"></i><a data-toggle="modal" data-target="#myModal{{ employee.id }}" > Delete</a></td>
+								<div class="modal fade" id="myModal{{employee.id}}" role="dialog">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+								
+								  <!-- Modal content-->
+								  <div class="modal-content">
+									<div class="modal-header">
+									  <button type="button" class="close" data-dismiss="modal">&times;</button>
+									  <h4 class="modal-title">Note</h4>
+									</div>
+									<form method="POST" action={{url_for('employee_manage.EmployeeDelete', id = employee.id)}}>
+									<div class="modal-body">
+										<textarea class="form-control" id="message-text" name="note"></textarea>
+										<INPUT type="hidden" name="firstbox" value={{employee.id}}>
+									</div>
+									<div class="modal-footer">
+									  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									  <button type="submit" class="btn btn-primary">Ok</button></a>
+									</div>
+
+
+									</form>
+								  </div>
+								  
+								</div>
+								</div>
                                 <td class="center auto-line-break"><i class="fa fa-pencil fa-fw"></i> <a href={{url_for('employee_manage.EmployeeEdit', id = employee.id )}}>Edit</a></td>
                             </tr>
 							{% endfor %}
