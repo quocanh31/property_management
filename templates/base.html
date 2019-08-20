@@ -42,27 +42,40 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 	<style>
-	.table-inside-modal{
-	  display:table;         
-	  width:auto;                
-	  border:1px solid  #666666;         
-	 
+	
+	
+	.css-table {
+	display: table;
 	}
-	.table-row{
-	  display:table-row;
-	  width:auto;
-	  clear:both;
+
+	.css-table-header {
+	display: table-header-group;
+	font-weight: bold;
+	background-color: rgb(191, 191, 191);
+
+
 	}
-	.table-col{
-	  float:left;
-	  display:table-column;         
-	  width:130px;         
-	  border:1px solid  #ccc;
+
+	.css-table-body {
+	display: table-row-group;
 	}
-	#tableinmodal {
-	  table-layout: fixed;
-	  word-wrap: break-word;
-	}	
+
+	.css-table-row {
+
+	display: table-row;
+	}
+
+	.css-table-header div,
+	.css-table-row div {
+	display: table-cell;
+	padding: 0 6px;
+	}
+
+	.css-table-header div {
+	text-align: center;
+	border: 1px solid rgb(255, 255, 255);
+	}
+
 	.dropbtn {
 	  min-width:150px;
 	  background-color: #5bc0de;

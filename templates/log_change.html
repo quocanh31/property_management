@@ -58,7 +58,7 @@
 
 							
 							<div class="modal fade" id="myModal{{ device_log.id }}" role="dialog">
-							<div class="modal-dialog" style="min-width:1000px !important;" role="document">
+							<div class="modal-dialog" style="width:630px !important;"  role="document">
 							
 							  <!-- Modal content-->
 							  <div class="modal-content">
@@ -70,38 +70,45 @@
 
 								</div>
 								<div class="modal-body">
-									<div class="table-inside-modal">
-											 <div class="table-row">
-												<div class="table-col">ID</div>
-												<div class="table-col">Name</div>
-												<div class="table-col">Serial</div>
-												<div class="table-col">Brand</div>
-												<div class="table-col">Type</div>
-												<div class="table-col">Date buy</div>
-												<div class="table-col">Value</div>
-											</div>
-											<div class="table-row">
-												<div class ="table-col">{{device_log.device_id}}</div>
-												<div class="table-col">{{device_log.name}}</div>
-												<div class="table-col">{{device_log.serial}}</div>
-												<div class="table-col">{{device_log.brand}}</div>
-												<div class="table-col">{{device_log.type}}</div>
-												<div class="table-col">{{device_log.date_buy}}</div>
-												<div class="table-col">{{device_log.value}}</div>
-										   </div>
+
+									
+									<div class="css-table">
+										<div class="css-table-header">
+											<div >ID</div>
+											<div>Name</div>
+											<div >Serial</div>
+											<div>Brand</div>
+											<div>Type</div>
+											<div >Date buy</div>
+											<div>Value</div>
 									</div>
+
+									<div class="css-table-body">
+										<div class="css-table-row">
+											<div style="width:85px; word-wrap: break-word; text-align:center;">{{device_log.device_id}}</div>
+											<div style="width:85px; word-wrap: break-word; text-align:center;">{{device_log.name}}</div>
+											<div style="width:85px; word-wrap: break-word; text-align:center;">{{device_log.serial}}</div>
+											<div style="width:85px; word-wrap: break-word; text-align:center;">{{device_log.brand}}</div>
+											<div style="width:85px; word-wrap: break-word; text-align:center;">{{device_log.type}}</div>
+											<div style="width:85px; word-wrap: break-word; text-align:center;">{{device_log.date_buy}}</div>
+											<div style="width:85px; word-wrap: break-word; text-align:center;">{{device_log.value}}</div>
+										</div>
+
+									</div>
+									</div>
+
 								</div>
 
 								<div class="modal-footer">
 								  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 								</div>
-							  </div>
+								</div>
 							  
 							</div>
 							</div>
 							
 							<div class="modal fade" id="editModal{{ device_log.id }}" role="dialog">
-							<div class="modal-dialog" style="min-width:1000px !important;" role="document">
+							<div class="modal-dialog" style="width:630px !important;"  role="document">
 							
 							  <!-- Modal content-->
 							  <div class="modal-content">
@@ -120,25 +127,30 @@
 
 								</div>
 								<div class="modal-body">
-									<div class="table-inside-modal">
-											 <div class="table-row">
-												<div class="table-col">ID</div>
-												<div class="table-col">Name</div>
-												<div class="table-col">Serial</div>
-												<div class="table-col">Brand</div>
-												<div class="table-col">Type</div>
-												<div class="table-col">Date buy</div>
-												<div class="table-col">Value</div>
+						
+									<div class="css-table">
+										<div class="css-table-header">
+												<div >ID</div>
+												<div>Name</div>
+												<div >Serial</div>
+												<div>Brand</div>
+												<div>Type</div>
+												<div >Date buy</div>
+												<div>Value</div>
+										</div>
+
+										<div class="css-table-body">
+											<div class="css-table-row">
+												<div style="width:85px; word-wrap: break-word; text-align:center;" >{{id[0]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;" >{{name[0]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{serial[0]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{brand[0]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{type[0]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{date_buy[0]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{value[0]}}</div>
 											</div>
-											<div class="table-row">
-												<div class="table-col">{{id[0]}}</div>
-												<div class="table-col">{{name[0]}}</div>
-												<div class="table-col">{{serial[0]}}</div>
-												<div class="table-col">{{brand[0]}}</div>
-												<div class="table-col">{{type[0]}}</div>
-												<div class="table-col">{{date_buy[0]}}</div>
-												<div class="table-col">{{value[0]}}</div>
-										   </div>
+
+										</div>
 									</div>
 								</div>
 
@@ -147,25 +159,28 @@
 									<h4 class="modal-title">New value</h4>
 								</div>
 								<div class="modal-body">
-									<div class="table-inside-modal">
-											 <div class="table-row">
-												<div class="table-col">ID</div>
-												<div class="table-col">Name</div>
-												<div class="table-col">Serial</div>
-												<div class="table-col">Brand</div>
-												<div class="table-col">Type</div>
-												<div class="table-col">Date buy</div>
-												<div class="table-col">Value</div>
-											</div>
-											<div class="table-row">
-												<div class="table-col">{{id[1]}}</div>
-												<div class="table-col">{{name[1]}}</div>
-												<div class="table-col">{{serial[1]}}</div>
-												<div class="table-col">{{brand[1]}}</div>
-												<div class="table-col">{{type[1]}}</div>
-												<div class="table-col">{{date_buy[1]}}</div>
-												<div class="table-col">{{value[1]}}</div>
-										   </div>
+									<div class="css-table">
+										<div class="css-table-header">
+											<div >ID</div>
+											<div>Name</div>
+											<div >Serial</div>
+											<div>Brand</div>
+											<div>Type</div>
+											<div >Date buy</div>
+											<div>Value</div>
+										</div>
+
+									<div class="css-table-body">
+										<div class="css-table-row">
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{id[1]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{name[1]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{serial[1]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{brand[1]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{type[1]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{date_buy[1]}}</div>
+												<div style="width:85px; word-wrap: break-word; text-align:center;">{{value[1]}}</div>
+										</div>
+									</div>
 									</div>
 								</div>								
 								<div class="modal-footer">
@@ -197,7 +212,7 @@
 
 							
 							<div class="modal fade" id="myemployeeModal{{ employee_log.id }}" role="dialog">
-							<div class="modal-dialog" style="min-width:1000px !important;" role="document">
+							<div class="modal-dialog" style="width:500px !important;"  role="document">
 							
 							  <!-- Modal content-->
 							  <div class="modal-content">
@@ -209,26 +224,28 @@
 
 								</div>
 								<div class="modal-body">
-									<div class="table-inside-modal">
-											 <div class="table-row">
-												<div class="table-col">ID</div>
-												<div class="table-col">Name</div>
-												<div class="table-col">Identity card</div>
-												<div class="table-col">Position</div>
 
-											</div>
-											<div class="table-row">
-												<div class ="table-col">{{employee_log.employee_id}}</div>
-												<div class="table-col">{{employee_log.name}}</div>
-												<div class="table-col">{{employee_log.identity_card}}</div>
-												<div class="table-col">{{employee_log.position}}</div>
+									<div class="css-table">
+										<div class="css-table-header">
+											<div >ID</div>
+											<div >Name</div>
+											<div >Identity card</div>
+											<div >Position</div>
+										</div>
 
-										   </div>
+									<div class="css-table-body">
+										<div class="css-table-row">
+											<div style="width:120px;word-wrap: break-word; text-align:center;">{{employee_log.employee_id}}</div>
+											<div style="width:120px;word-wrap: break-word; text-align:center;">{{employee_log.name}}</div>
+											<div style="width:120px;word-wrap: break-word; text-align:center;">{{employee_log.identity_card}}</div>
+											<div style="width:120px;word-wrap: break-word; text-align:center;">{{employee_log.position}}</div>
+										</div>
 									</div>
-								</div>
+									</div>									
 
+								</div>
 								<div class="modal-footer">
-								  <button type="button" class="btn btn-parimary" data-dismiss="modal">Close</button>
+								  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 								</div>
 							  </div>
 							  
@@ -236,7 +253,7 @@
 							</div>
 							
 							<div class="modal fade" id="editemployeeModal{{ employee_log.id }}" role="dialog">
-							<div class="modal-dialog" style="min-width:1000px !important;" role="document">
+							<div class="modal-dialog" style="width:500px !important;" role="document">
 							
 							  <!-- Modal content-->
 							  <div class="modal-content">
@@ -251,23 +268,24 @@
 
 
 								</div>
-								<div class="modal-body">
-									<div class="table-inside-modal">
-											 <div class="table-row">
-												<div class="table-col">ID</div>
-												<div class="table-col">Name</div>
-												<div class="table-col">Identity Card</div>
-												<div class="table-col">Position</div>
+								<div class="modal-body">								
+									<div class="css-table">
+										<div class="css-table-header">
+											<div >ID</div>
+											<div >Name</div>
+											<div >Identity card</div>
+											<div >Position</div>
+										</div>
 
-											</div>
-											<div class="table-row">
-												<div class="table-col">{{em_id[0]}}</div>
-												<div class="table-col">{{em_name[0]}}</div>
-												<div class="table-col">{{em_identity_card[0]}}</div>
-												<div class="table-col">{{em_position[0]}}</div>
-
-										   </div>
+									<div class="css-table-body">
+										<div class="css-table-row">
+												<div style="width:120px;word-wrap: break-word; text-align:center;">{{em_id[0]}}</div>
+												<div style="width:120px;word-wrap: break-word; text-align:center;">{{em_name[0]}}</div>
+												<div style="width:120px;word-wrap: break-word; text-align:center;">{{em_identity_card[0]}}</div>
+												<div style="width:120px;word-wrap: break-word; text-align:center;">{{em_position[0]}}</div>
+										</div>
 									</div>
+									</div>		
 								</div>
 
 								<div class="modal-header">
@@ -275,22 +293,23 @@
 									<h4 class="modal-title">New value</h4>
 								</div>
 								<div class="modal-body">
-									<div class="table-inside-modal">
-											 <div class="table-row">
-												<div class="table-col">ID</div>
-												<div class="table-col">Name</div>
-												<div class="table-col">Identity Card</div>
-												<div class="table-col">Position</div>
+									<div class="css-table">
+										<div class="css-table-header">
+											<div >ID</div>
+											<div >Name</div>
+											<div >Identity card</div>
+											<div >Position</div>
+										</div>
 
-											</div>
-											<div class="table-row">
-												<div class="table-col">{{em_id[1]}}</div>
-												<div class="table-col">{{em_name[1]}}</div>
-												<div class="table-col">{{em_identity_card[1]}}</div>
-												<div class="table-col">{{em_position[1]}}</div>
-
-										   </div>
+									<div class="css-table-body">
+										<div class="css-table-row">
+												<div style="width:120px;word-wrap: break-word; text-align:center;">{{em_id[1]}}</div>
+												<div style="width:120px;word-wrap: break-word; text-align:center;">{{em_name[1]}}</div>
+												<div style="width:120px;word-wrap: break-word; text-align:center;">{{em_identity_card[1]}}</div>
+												<div style="width:120px;word-wrap: break-word; text-align:center;">{{em_position[1]}}</div>
+										</div>
 									</div>
+									</div>		
 								</div>								
 								<div class="modal-footer">
 								  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
