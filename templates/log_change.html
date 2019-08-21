@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-							{% for device_log in device_logs %}
+							{% for device_log in device_logs.items %}
                             <tr class="odd gradeX" align="center">
 								<td></td>
                                 <td class="auto-line-break">Device</td>
@@ -193,7 +193,7 @@
 
 							{% endfor %}
 							
-							{% for employee_log in employee_logs %}
+							{% for employee_log in employee_logs.items %}
                             <tr class="odd gradeX" align="center">
 								<td></td>
                                 <td class="auto-line-break">Employee</td>
@@ -323,6 +323,14 @@
 
                         </tbody>
                     </table>
+					<div class="row">
+					<div class="col-sm-6">
+					{{ pagination.info }}
+					</div>
+					<div class="col-sm-6" style="display:inline; text-align: right">
+					{{ pagination.links }}
+					</div>
+					</div>
 
 
                 </div>
@@ -344,9 +352,9 @@ $(document).ready(function() {
 			"targets": 0
 		} ],
 		"order": [[ 4, "asc" ]],
-		pageLength: 100,
+		pageLength: 6,
 		orderCellsTop: true,
-		"dom" : '<<"toolbar">f<<"col-md-1"><"col-md-10"t<ip>><"col-md-1">>>',
+		"dom" : '<<"toolbar">f<<"col-md-1"><"col-md-10"t<>><"col-md-1">>>',
 		initComplete: function(){
 			$("div.toolbar").html('<input id="date_range" style="width:165px; margin-bottom:1px;" class="form-control" type="text" placeholder="Select date range";>');
    }  
